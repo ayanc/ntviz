@@ -5,7 +5,7 @@
 # BASE URL of your .js and .css assets. Update this if you make
 # changes, or want to deploy this somewhere on a local network.
 if [ -z "$NTVPATH" ]; then
-    NTVPATH='http://ayanc.github.io/ntviz/'
+    NTVPATH='https://ayanc.github.io/ntviz/'
 fi
 
 function parseLog {

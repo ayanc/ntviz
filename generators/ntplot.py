@@ -5,7 +5,7 @@ import numpy as np
 import re
 import os
 
-NTVPATH=os.getenv('NTVPATH','http://ayanc.github.io/ntviz/')
+NTVPATH=os.getenv('NTVPATH','https://ayanc.github.io/ntviz/')
 
 htpfx='''
 <!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="$NTVPATHntviz.css">
