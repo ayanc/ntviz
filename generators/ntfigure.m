@@ -69,7 +69,7 @@ end;
 fprintf(fid,'];\n');
 
 fprintf(fid,[ '</script><script src="'  ...
-	      npath 'ntviz.js"></script></body></html>\n']);
+	      npath 'ntviz.js"></script></body></html>']);
 
 fclose(fid);
 end
