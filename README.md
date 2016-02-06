@@ -14,7 +14,9 @@ To get you started, two ways of generating these html files are provided:
 2. A python class to accumulate ```plot``` calls, and then generate
 the html visualization.
 
-[Example Visualization](https://ayanc.github.io/ntviz/example/caffe.html#25000_3_11111111111111111111)
+[![example](https://ayanc.github.io/ntviz/example/example.jpg)](https://ayanc.github.io/ntviz/example/caffe.html#25000_3_10101010101010101010)
+
+[Example Visualization](https://ayanc.github.io/ntviz/example/caffe.html#25000_3_10101010101010101010)
 
 
 ## Visualization Features
