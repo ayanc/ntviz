@@ -4,15 +4,17 @@ This is a quick hack to create static html files that provide an
 interactive visualization for the evolution of loss functions during
 neural network training. These html files just contain the underlying
 time-series data, and plot this data with javascript using Mike
-Bostock's excellent [d3js](http://d3js.org/) library .
+Bostock's excellent [D3](http://d3js.org/) library .
 
-To get you started, two ways of generating these html files are provided:
+To get you started, two ways of generating these html files are
+provided:
 
 1. A bash script to that creates visualizations directly from
-[Caffe](https://github.com/BVLC/caffe) log files
+[Caffe](https://github.com/BVLC/caffe) log files.
 
-2. A python class to accumulate ```plot``` calls, and then generate
-the html visualization.
+2. Python and MATLAB interfaces to accumulate ```plot``` calls, and
+flush them to a single html file.
+
 
 [![example](https://ayanc.github.io/ntviz/example/example.jpg)](https://ayanc.github.io/ntviz/example/caffe.html#25000_3_10101010101010101010)
 
@@ -37,7 +39,7 @@ web-server. The visualization allows the following interactions:
 - **Smooth**: Click on the arrows on the top right to increase or
     decrease the level of smoothing.
 
-- **Zoom**: Click on the + button on the top right to toggle etween a
+- **Zoom**: Click on the + button on the top right to toggle between a
     normal plot, and *cartesian fisheye* zoom on mouseover.
 
 - **Export**: Click on the arrow on the top right to export to a
@@ -52,8 +54,11 @@ to reload the html file, you won't lose your settings (like subset of
 losses selected, smoothness level, etc.). Any saved bookmarks will
 also preserve settings when you return to them.
 
-The visualization should also work on the browser in most smartphones,
-if you choose to serve the generated html file from a web-browser.
+These static html files are self-contained, which means that you can
+e-mail them to your collaborators and have them interact with the
+data. The visualization should also work on the browser in most
+smartphones, if you choose to serve the generated html file from a
+web-browser.
 
 
 ## Generating Visualizations
@@ -90,17 +95,19 @@ done
 ```
 
 This will keep refreshing ```out.html``` every three minutes. The
-script silently ignores absent log files. This means that if you've
-started training jobs on a cluster, you can start the above loop
-immediately, and data from log files will appear once your jobs are
-scheduled. Also remember that you can run this script from any machine
-which mounts the directory where the log files are being generated.
+script silently ignores absent log files. This is useful if you are
+tracking jobs submitted to a cluster that may only start sometime in
+the future.
 
-### From python
+### Python & MATLAB
 
-Add the ```generators/``` directory to your ```PYTHONPATH```. Then,
-use the ```ntplot``` package as shown in the example below:
+Add the ```generators/``` directory to your path (by setting
+```PYTHONPATH``` or with ```addpath``` for MATLAB). Then, in either
+language, create an object of the provided classes, make multiple ```plot```
+calls (providing x, y, and label), and finally a ```save``` to create
+the visualization. 
 
+Python Example:
 ```python
 import numpy as np
 import ntplot as ntp
@@ -121,7 +128,25 @@ plt.plot(x2*1000,y3,'x2.y3')
 plt.save('pyex.html')
 ```
 
-This generates the following html file: [pyex.html](https://ayanc.github.io/ntviz/example/pyex.html)
+MATLAB Example:
+```matlab
+x = [0:99];
+y1 = 10 - exp((-x/100).^2) + sin(x/10*pi)/16;
+y2 = 10 - exp((-x/100).^2) + cos(x/10*pi)/16;
+
+x2 = x(1:2:end)+10;
+y3 = 10 - exp((-x2/100).^2/2)+ cos(x2/10*pi)/16;
+
+
+plt = ntfigure();
+plt.plot(x*1000,y1,'x.y1');
+plt.plot(x*1000,y2,'x.y2');
+plt.plot(x2*1000,y3,'x2.y3');
+plt.save('matex.html');
+```
+
+These examples generate the following html file:
+[pyex.html](https://ayanc.github.io/ntviz/example/pyex.html)
 
 ### Others
 
@@ -137,7 +162,7 @@ The current caffe and python generators will create html files with
 links to the ```ntviz.js``` and ```ntviz.css``` files on the project's
 github page. If you would like to use a different address (for
 example, to work with a locally modified copy, or to make the HTML
-files work when offline), please either set the ```NTVPATH``
+files work when offline), please either set the ```NTVPATH```
 environment variable to the directory or URL where these files are stored:
 ```bash
 $ export NTVPATH="/home/jdoe/gitclones/ntviz/"
