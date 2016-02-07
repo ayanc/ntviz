@@ -63,6 +63,9 @@ web-browser.
 
 ## Generating Visualizations
 
+If you just want to create visualizations, it is sufficient to
+download one of the files from the ```generators/``` directory.
+
 ### From caffe log files
 
 Put the [generators/cfviz.sh](generators/cfviz.sh) file somewhere in
@@ -101,11 +104,12 @@ the future.
 
 ### Python & MATLAB
 
-Add the ```generators/``` directory to your path (by setting
-```PYTHONPATH``` or with ```addpath``` for MATLAB). Then, in either
-language, create an object of the provided classes, make multiple ```plot```
+Download the [generators/ntplot.py](generators/ntplot.py) or
+[generators/ntfigure.py](generators/ntfigure.m) file, and put it
+somewhere in your Python / MATLAB path. Then, in either language,
+create an object of the provided classes, make multiple ```plot```
 calls (providing x, y, and label), and finally a ```save``` to create
-the visualization. 
+the visualization.
 
 Python Example:
 ```python
