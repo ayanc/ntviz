@@ -1,5 +1,5 @@
 body { background: #111; margin-top: 20px; }
-div#graph { background: #fff; margin: 0px auto; width: 1000px; height: 600px;}
+div#graph { background: #fff; margin: 0px auto;}
 .axis text {pointer-events: none;}
 .axis path, .axis line { fill: none; stroke: #000; shape-rendering: crispEdges; }
 .xax .domain { stroke-width: 5px; stroke-opacity: 0.25; }

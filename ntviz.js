@@ -90,7 +90,7 @@ var slider, handle, scap;
 
 window.onload = function() {
 
-    var count, i, j;
+    var count, i, j, Swidth2;
 
     setActive(); loadHash();
     if(active.length <= 10)
@@ -98,9 +98,25 @@ window.onload = function() {
     else
 	cScale = d3.scale.category20();
 
+    // Compute height and width based on number of labels
+    count = 1;
+    for(i = 0; i < data.length; i++)
+	count += data[i].val.length;
+    count = 25+count*25;
+    Sheight = Sheight > count ? Sheight : count;
+
+    count = 0;
+    for(i = 0; i < data.length; i++)
+	for(j = 0; j < data[i].lbls.length; j++)
+	    count = count > data[i].lbls[j].length ? count : data[i].lbls[j].length;
+    count = -235 + count*8; Swidth2 = Swidth;
+    if(count > 0)
+	Swidth2 = Swidth2+count;
+        
     // SVG setup
+    d3.select("#graph").style("width",Swidth2+"px").style("height",Sheight+"px");
     svg = d3.select("#graph").append("svg").attr("xmlns","http://www.w3.org/2000/svg")
-	.attr("width",Swidth).attr("height",Sheight);
+	.attr("width",Swidth2).attr("height",Sheight);
     fig = svg.append("g").attr("transform", "translate(" + fLeft + "," + fTop + ")");
 
     // Create line elements
