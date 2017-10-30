@@ -17,34 +17,16 @@ htsfx='''
 </script><script src="$NTVPATHntviz.js"></script></body></html>
 '''.lstrip().rstrip().replace('$NTVPATH',NTVPATH)
 
-def _fmt(x):
-    if np.round(x) != x:
-        return str(x)
-    x = np.int64(np.round(x))
-
-    if x == 0:
-        return '0'
-
-    ienc=str(x)
-    rm=re.match("(.*[^0])(0*)",ienc) # Shorten counts with many zeros
-    nz=len(rm.group(2))
-    if nz > 2:
-        ienc=rm.group(1)+'e'+str(len(rm.group(2)))
-    return ienc
-
 class ntobj:
     def serialize(self):
         s='{it:['
 
         for i in range(len(self.it)):
-            s = s + _fmt(self.it[i]) + ','
+            s = s + str(self.it[i]) + ','
 
         s=s+'],val:['
         for i in range(len(self.val)):
-            s = s+'['
-            for j in range(len(self.val[i])):
-                s = s+_fmt(self.val[i][j])+','
-            s = s+'],'
+            s = s+'['+','.join(['%.5f'%float(v) for v in self.val[i]])+'],'
         s=s+'],lbls:['
 
         for i in range(len(self.lbls)):
